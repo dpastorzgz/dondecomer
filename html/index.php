@@ -12,7 +12,60 @@
         <?php 
         $link = $_SERVER[HTTP_HOST] . $_SERVER[REQUEST_URI];
         $escaped_link = htmlspecialchars($link, ENT_QUOTES, 'UTF-8');
-        echo $escaped_link;
+        echo $escaped_link; 
+
+        echo "<br>";
+
+        // $servername = "localhost";
+        // $database = "dondecomer";
+        // $username = "david";
+        // $password = "qwerty";
+
+        // // Create connection
+        // $conn = mysqli_connect($servername, $username, $password, $database);
+        // // Check connection
+        // if (!$conn) {
+        //     die("Connection failed: " . mysqli_connect_error());
+        // }
+        // echo "Connected successfully";
+        // echo "<br>";
+
+        // $result = $conn->query("SELECT url FROM ciudades");
+        // printf("Select returned %d rows.\n", $result->num_rows);
+        // echo "<br>";
+
+        // $result = mysqli_query($conn, "SELECT url,nombreciudad FROM ciudades");
+
+        // while ($fila = mysqli_fetch_array($result)){
+        //   mostrarDatos($fila);
+        // }
+
+        // mysqli_close($conn);
+
+        // function mostrarDatos ($resultados) {
+
+        //   if ($resultados !=NULL) {
+        //     echo "- URL: ".$resultados['url'];
+        //     echo "- NOMBRE: ".$resultados['nombreciudad']."<br/> ";
+        //   }
+        //   else {
+        //     echo "<br/>No hay más datos!!! <br/>";
+        //   }
+        // }
+
+        spl_autoload_register(function($clase) {
+          require_once "classes/$clase.php";
+        });
+
+        $db = new database();
+        $conn = $db->open();
+
+        $datosCiudades = $db->consultarCiudades($conn);
+
+        $db->mostrarDatos($datosCiudades);
+
+        $conn = $db->close($conn);
+
         ?>
         <div class="barraSuperior">
             <div>
