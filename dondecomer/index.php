@@ -37,8 +37,8 @@
 
     ?>    
     <div class="container-fluid">
-        <div class="navbar navbar-default navbar-inverse" role="navigation">
-            <div class="container-fluid">
+        <div class="navbar navbar-default navbar- navbar-inverse" role="navigation">
+            <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
@@ -48,11 +48,11 @@
                     </button>
                     <a class="navbar-brand" href="#">Ciudades</a>
                 </div>
-                <div class="navbar-toggle collapse">
+                <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <?php
                             while ($fila = mysqli_fetch_array($datosCiudades)){
-                        ?>                        
+                        ?>                     
                         <li class="active">
                             <a href="<?= $fila['url'] ?>"><?= $fila['nombreciudad'] ?></a>
                         </li>
@@ -62,7 +62,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div>        
     </div>
 
     <div class="container-fluid">
@@ -169,11 +169,13 @@
     <footer class="text-center text-lg-start bg-light text-muted">
     <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
         <div class="me-5 d-none d-lg-block">
-        <span>PROYECTO DAW</span>
+            <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+                PROYECTO DAW
+            </div>  
         </div>
     </section>
 
-    <section class="">
+    <section class="">      
         <div class="container text-center text-md-start mt-5">
         <div class="row mt-3">
             <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">

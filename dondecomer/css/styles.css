@@ -39,6 +39,21 @@
   width: 450px;
 }
 
+
+.fieldset {
+  padding-left: 20px;
+}
+
+th {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+td {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
 @media (min-width: 680px) and (max-width: 767px) {
   .iconotitulo {
     padding-left: 150px;
