@@ -22,7 +22,7 @@
         }
         
         spl_autoload_register(function($clase) {
-          require_once "/classes/$clase.php";
+          require_once "./classes/$clase.php";
         });
 
         $db = new database();
