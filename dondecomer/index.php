@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-    <title>DondeComerZGZ</title>
+    <title>DondeComer</title>
     <meta charset="utf-8">
-    <meta name="description" content="Donde comer en Zaragoza">
+    <meta name="description" content="Donde comer">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="css/dondeComerLogo.jpg"> 
 
