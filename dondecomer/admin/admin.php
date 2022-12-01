@@ -6,18 +6,18 @@
     <meta charset="utf-8">
     <meta name="description" content="Donde comer en Zaragoza">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="css/dondeComerLogo.jpg"> 
+    <link rel="icon" href="../css/dondeComerLogo.jpg"> 
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet"> 
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet"> 
 </head>
 
 <body>
     <?php 
         //Función para auto carga de clases siguiendo las buenas prácticas de programación
         spl_autoload_register(function ($clase) {
-            require_once "classes/$clase.php";
+            require_once "../classes/$clase.php";
             }
         );
 
@@ -65,7 +65,7 @@
             <fieldset class="fieldset">
                 <legend>Bases de datos disponibles</legend>
 
-                <form action="/tablas.php" method="post">
+                <form action="/admin/tablas.php" method="post">
                     <?php
                         for ($n=0; $n<=$elementos;$n++) {
                             if ($n == 0 ) { ?>

@@ -6,81 +6,27 @@
     <meta charset="utf-8">
     <meta name="description" content="Donde comer en Zaragoza">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="css/dondeComerLogo.jpg"> 
+    <link rel="icon" href="../css/dondeComerLogo.jpg"> 
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet"> 
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet"> 
 </head>
 
 <body>
     <?php 
         //Función para auto carga de clases siguiendo las buenas prácticas de programación
         spl_autoload_register(function ($clase) {
-            require_once "classes/$clase.php";
+            require_once "../classes/$clase.php";
             }
         );
 
-        session_start();
-
         $db = new databaseAdmin();
-        
-        if (isset($_POST['consultar'])) {
-            $tabla = $_POST['tabla'];
-            $_SESSION['tabla'] = $tabla;
-        } else
-            $tabla = $_SESSION['tabla'];
-        
-        if ($tabla != '') {
-            $campos = $db->campos($tabla);
-            $_SESSION['campos'] = $campos;
-            $sentencia = 'SELECT * FROM ' . $tabla;
-            $filas = $db->seleccionar($sentencia);
-        }
-        
-        if (isset($_POST['submit'])) {
-            switch ($_POST['submit']) {
-                case 'Nuevo':
-                    header("Location:/insertar.php");
-                    break;
-                case 'Editar':
-                    $param = '';
-                    $num = 0;
-                    foreach ($campos as $campo) {
-                        $var = $_POST["$num"];
-                        $param = $param  . "&" . $campo . "=" .$var;
-                        $num++;
-                    }
-                    $header = "Location:/editar.php?" . $param;
-                    header($header);
-                    break;
-                case 'Borrar':
-                    $parametros = [];
-                    $sentencia = "DELETE FROM " . $tabla . " Where ";
-                    $param = '';
-                    $num = 0;
-                    $contadorParam = 0;
-                    foreach ($campos as $campo) {
-                        if ($contadorParam != 0) {
-                            $param = $param  . " AND ";
-                        }
-                        $var = $_POST["$num"];
-                        $param = $param  . " " . $campo . "=?";
-                        $parametros [] = $var;
-                        $num++;
-                        $contadorParam++; 
-                    }
-                    $sentencia = $sentencia . $param;
-                    $db->ejecutarSentencia($sentencia,$parametros);
-                    $sentencia = 'SELECT * FROM ' . $tabla;
-                    $filas = $db->seleccionar($sentencia);
-                    break;
-                case 'Volver':
-                    $db->cerrarDB();
-                    header("Location:tablas.php");
-                    break;
-            }
-        }        
+        $listBBDD = $db->show_Databases();
+        $nombreBBDD = $listBBDD[0];
+
+        $listBBDD = $db->show_Tables();
+        $elementos = sizeof($listBBDD) - 1;
     ?>
       
     <div class="container-fluid">
@@ -105,7 +51,7 @@
             <fieldset class="fieldset">
                 <legend>Datos de conexión</legend>
                 
-                <form action="/tablas.php" method="POST">
+                <form action="/admin/admin.php" method="POST">
                     <label for="host">Host</label>
                     <input type="text" name="host" value="localhost" id="" readonly="readonly">
                     <label for="usuario">Usuario</label>
@@ -118,60 +64,30 @@
         </div>   
         <br/>
 
-        <div class ="row">
+        <div class="row">
+            <fieldset class="fieldset">
+                <legend>Gestion de las Bases de Datos <span class="resaltar"><?= $nombreBBDD ?></span></legend>
+                <form action='/admin/gestionarTabla.php' method='post'>
 
-        <fieldset class="fieldset">
-            <legend>Admnistración de la tabla <?php echo $tabla; ?></legend>
-            <?= $msj ?? null?>
-            <table id="tabla" class="display" border="1">
-                <thead>
-                <tr>
-                <?php
-                    foreach ($campos as $campo) {  ?>
-                        <th><?= $campo ?> </th>
-                <?php
-                    }
-                ?>
-                <th colspan="2">Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php
-                    $fila = $filas->fetch(PDO::FETCH_NUM);
-                    while ($fila) { ?>
-                <tr>
-                    <form action='/gestionarTabla.php' method='post'>
+                    <?php
+                    for ($n=0; $n<=$elementos;$n++) {
+                        if ($n == 0 ) { ?>
+                            <input type="radio" name="tabla" checked value="<?= $listBBDD[$n] ?>"><?= $listBBDD[$n] ?><br>
+                        <?php } else { ?>
+                            <input type="radio" name="tabla"  value="<?= $listBBDD[$n] ?>"><?= $listBBDD[$n] ?><br>
+                        <?php } ?>
 
-                        <?php
-                        $n = 0;
-                        foreach ($fila as $valor) {  ?>
-                            <td> <?= $valor ?> </td>
-                            <input type="hidden" value="<?= $valor ?>" name="<?= $n ?>">
+                    <?php }
+                    ?>
 
+                <br/>
+                <input type="submit" name="consultar" value="Seleccionar tabla" />
+                </form>
 
-                        <?php $n++;} ?>
-
-                        <input type="hidden" value="<?= $n ?>" name="numCampos">
-                        <td><input id=tabla type="submit" value="Editar" name="submit"></td>
-                        <td><input id=tabla type="submit" value="Borrar" name="submit"></td>
-                    </form>
-                </tr>
-                <?php
-                $fila = $filas->fetch(PDO::FETCH_NUM);
-                }
-                ?>
-            </table>
-            <br/>
-            <form action='gestionarTabla.php' method='post'>
-                <input type="submit" value="Nuevo" name="submit">
-                <input type="submit" value="Volver" name="submit">
-
-            </form>
-        </fieldset>
-
+            </fieldset> 
         </div>
-
         <br/>
+
         <footer class="text-center text-lg-start bg-light text-muted">
             <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
                 <div class="me-5 d-none d-lg-block">

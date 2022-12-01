@@ -6,18 +6,18 @@
     <meta charset="utf-8">
     <meta name="description" content="Donde comer en Zaragoza">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="css/dondeComerLogo.jpg"> 
+    <link rel="icon" href="../css/dondeComerLogo.jpg"> 
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet"> 
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet"> 
 </head>
 
 <body>
     <?php 
         //Función para auto carga de clases siguiendo las buenas prácticas de programación
         spl_autoload_register(function ($clase) {
-            require_once "classes/$clase.php";
+            require_once "../classes/$clase.php";
             }
         );
 
@@ -29,58 +29,33 @@
         $campos = $_SESSION['campos'];
         $tabla = $_SESSION['tabla'];
         
-        switch ($_POST['enviar']) {
+        switch ($opcion){
             case 'Guardar':
                 $parametros = [];
-                $parametrosWhere = [];
-                $sentencia = "UPDATE " . $tabla . " SET ";
-                $param = '';
-                $param2 = '';
-                $num = 0;
-                $contadorParamSet = 0;
-                $contadorParamWhere = 0;
+                $sentencia = 'INSERT INTO ' . $tabla . ' (';
+                foreach ($campos as $campo) {
+                    $sentencia .= $campo;
+                    $sentencia .= ',';
+                }
+                $long = $sentencia.sizeof() - 1;
+                $sentencia[$long] = ')';
+                $sentencia .= ' VALUES (';
         
-                if($_POST) {
-                    foreach ($_POST as $clave=>$valor) {
-                        if ($clave != 'enviar') {
-                            $var = explode('clv-',$clave);
-                            if ($var[0] != '') {
-                                if ($contadorParamSet != 0) {
-                                    $param = $param  . " , ";
-                                }
-                                $clv = explode('_',$var[0]);
-                                $param = $param  . " " . $clv[0] . "=?";
-        
-                                $parametros[] = $valor;
-                                $contadorParamSet++;
-                            } else {
-                                if ($contadorParamWhere != 0) {
-                                    $param2 = $param2  . " AND ";
-                                }
-        
-                                $clv = explode('_',$var[1]);
-                                $val = trim($valor);
-                                $param2 = $param2  . " " . $clv[0] . "=?";
-                                $parametrosWhere[] = $val;
-                                $contadorParamWhere++;
-                            }
-                        }
-                    }
+                foreach ($campos as $campo) {
+                    $var = $_POST[$campo];
+                    $sentencia .= '?,';
+                    $parametros [] = $var;
                 }
         
-                $sentencia = $sentencia . $param . " WHERE " . $param2;
-                echo "Sentencia ".$sentencia."</br>";
-                var_dump($parametros); echo"</br>";
-                var_dump($parametrosWhere); echo "</br>";
-                $db->ejecutarSentencia($sentencia,$parametros,$parametrosWhere);
-            
-                header("Location:/gestionarTabla.php");
-                exit();
-        
-            case 'Cancelar':
+                $long = $sentencia.sizeof() - 1;
+                $sentencia[$long] = ')';
+                $db->ejecutarSentencia($sentencia,$parametros);
+    
                 header("Location:gestionarTabla.php");
                 exit();
-        
+            case 'Cancelar':
+                header("Location:gestionarTabla.php");
+                break;
         }        
     ?>
       
@@ -106,7 +81,7 @@
             <fieldset class="fieldset">
                 <legend>Datos de conexión</legend>
                 
-                <form action="/admin.php" method="POST">
+                <form action="/admin/gestionarTabla.php" method="POST">
                     <label for="host">Host</label>
                     <input type="text" name="host" value="localhost" id="" readonly="readonly">
                     <label for="usuario">Usuario</label>
@@ -119,31 +94,23 @@
 
         <br/>
 
-        <div class=row">
+        <div class="row">
             <fieldset class="fieldset">
-                <legend>Editanto Registro de la tabla <?php echo $tabla ?></legend>
-                <form action="/editar.php" method="post">
+                <legend>Insertar nuevo registro en la tabla <?php echo $tabla ?></legend>
+                <form action="/admin/insertar.php" method="post">
                     <?php
-                    if($_GET)
-                    {
-                    $num = 0;
-                    foreach ($_GET as $clave=>$valor)
-                    { ?>
-
-                        <?= $clave ?> <input type="text" value="<?= $valor ?> " name="<?= $clave ?> " id=""><br />
-
-
-                        <input type="hidden" value="<?= $valor ?> " name="<?= "clv-" . $clave ?> " id=""><br />
-                    <?php $num++;}
-                    }?>
-
-                    <input type="submit" value="Guardar" name='enviar'>
-                    <input type="submit" value="Cancelar" name='enviar'>
-                    
+                        crea_formulario();
+                    ?>
+                    </br>
+                    <input type="submit" value="Guardar" name = submit>
+                    <input type="submit" value="Cancelar" name = submit>
+                    <input type="hidden" value='<?php echo $tabla; ?>' name="tabla">
                 </form>
-            </fieldset>        
-        </div>
-        <br/>
+            </fieldset>            
+        </div>    
+        </br>
+    </div>
+
     <footer class="text-center text-lg-start bg-light text-muted">
         <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
             <div class="me-5 d-none d-lg-block">
@@ -197,3 +164,12 @@
     </footer>      
 </body>
 </html>
+<?php
+
+function crea_formulario() {
+  global $campos;
+  foreach ($campos as $campo) {
+      echo "$campo <input type='text' name='$campo' id=''><br />";
+  }
+}
+?>

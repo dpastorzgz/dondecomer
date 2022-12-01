@@ -18,11 +18,11 @@
         $url = $_SERVER[HTTP_HOST];
         
         if ($_SERVER[REQUEST_URI] == '/?admin') {
-          header('Location: /admin.php');
+          header('Location: /admin/admin.php');
         }
         
         spl_autoload_register(function($clase) {
-          require_once "classes/$clase.php";
+          require_once "/classes/$clase.php";
         });
 
         $db = new database();
