@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="css/dondeComerLogo.jpg"> 
 
-    <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet"> 
 </head>
@@ -40,7 +39,7 @@
         <div class="navbar navbar-default navbar- navbar-inverse" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="ciudades" aria-expanded="false" data-target="#ciudades">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -48,7 +47,7 @@
                     </button>
                     <a class="navbar-brand" href="#">Ciudades</a>
                 </div>
-                <div class="navbar-collapse collapse">
+                <div class="navbar-collapse collapse" id="ciudades">
                     <ul class="nav navbar-nav">
                         <?php
                             while ($fila = mysqli_fetch_array($datosCiudades)){
@@ -78,7 +77,7 @@
         <div class="navbar navbar-default navbar- navbar-inverse" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="barrios" aria-expanded="false" data-target="#barrios">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -86,7 +85,7 @@
                     </button>
                     <a class="navbar-brand" href="#">Barrios</a>
                 </div>
-                <div class="navbar-collapse collapse">
+                <div class="navbar-collapse collapse" id="barrios">
                     <ul class="nav navbar-nav">
                         <?php
                             while ($fila = mysqli_fetch_array($barrios)){
@@ -167,55 +166,59 @@
         ?>             
     </div>
     <footer class="text-center text-lg-start bg-light text-muted">
-    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-        <div class="me-5 d-none d-lg-block">
-            <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-                PROYECTO DAW
-            </div>  
-        </div>
-    </section>
-
-    <section class="">      
-        <div class="container text-center text-md-start mt-5">
-        <div class="row mt-3">
-            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-            <h6 class="text-uppercase fw-bold mb-4">
-                <i class="fas fa-gem me-3"></i>Nombre
-            </h6>
-            <p>
-                David Pastor Puyuelo
-            </p>
+        <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+            <div class="me-5 d-none d-lg-block">
+                <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+                    PROYECTO DAW
+                </div>  
             </div>
+        </section>
 
-            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-            <h6 class="text-uppercase fw-bold mb-4">
-                Tecnologías
-            </h6>
-            <p>
-                <a href="https://www.php.net/manual/es/index.php" target="_blank" class="text-reset">PHP</a>
-            </p>
-            <p>
-                <a href="https://www.mysql.com/" target="_blank" class="text-reset">MySQL</a>
-            </p>
-            <p>
-                <a href="https://getbootstrap.com/" target="_blank" class="text-reset">Bootstrap</a>
-            </p>
+        <section class="">      
+            <div class="container text-center text-md-start mt-5">
+            <div class="row mt-3">
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                <h6 class="text-uppercase fw-bold mb-4">
+                    <i class="fas fa-gem me-3"></i>Nombre
+                </h6>
+                <p>
+                    David Pastor Puyuelo
+                </p>
+                </div>
+
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                <h6 class="text-uppercase fw-bold mb-4">
+                    Tecnologías
+                </h6>
+                <p>
+                    <a href="https://www.php.net/manual/es/index.php" target="_blank" class="text-reset">PHP</a>
+                </p>
+                <p>
+                    <a href="https://www.mysql.com/" target="_blank" class="text-reset">MySQL</a>
+                </p>
+                <p>
+                    <a href="https://getbootstrap.com/" target="_blank" class="text-reset">Bootstrap</a>
+                </p>
+                </div>
+
+
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                <h6 class="text-uppercase fw-bold mb-4">Contacto</h6>
+                <p>
+                    david.pastor.puyuelo@gmail.com
+                </p>
+                </div>
             </div>
-
-
-            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-            <h6 class="text-uppercase fw-bold mb-4">Contacto</h6>
-            <p>
-                david.pastor.puyuelo@gmail.com
-            </p>
             </div>
-        </div>
-        </div>
-    </section>
+        </section>
 
-    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-        © 2022 Copyright
-    </div>
-    </footer>      
+        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+            © 2022 Copyright
+        </div>
+    </footer>    
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>    
 </body>
 </html>
