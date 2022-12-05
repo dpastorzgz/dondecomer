@@ -117,7 +117,7 @@
                 <div class="texto">
                   <p><?= $fila['descripcion'] ?></p>
                   <?php
-                    if ($fila['urlOficial'] != '') { 
+                    if ($fila['urlOficial'] != ' ' & $fila['urlOficial'] != null) { 
                   ?>
                       <a href="<?= $fila['urlOficial'] ?>" target="_blank">Visita su carta</a>
                   <?php
@@ -126,28 +126,28 @@
                 </div>
                 <div class="texto">
                 <?php
-                  if ($fila['urlInstagram'] != '') { 
+                  if ($fila['urlInstagram'] != ' ' & $fila['urlInstagram'] != null) { 
                 ?>
                     <a href="<?= $fila['urlInstagram'] ?>" target="_blank"><img class="iconoface" src="css/instagram.png"/></a>
                 <?php
                   }
                 ?>
                 <?php
-                  if ($fila['urlFacebook'] != '') { 
+                  if ($fila['urlFacebook'] != ' ' & $fila['urlFacebook'] != null) { 
                 ?>
                     <a href="<?= $fila['urlFacebook'] ?>" target="_blank"><img class="iconoface" src="css/facebook.png"/></a>
                 <?php
                   }
                 ?>                
                 <?php
-                  if ($fila['urlUber'] != '') { 
+                  if ($fila['urlUber'] != ' ' & $fila['urlUber'] != null) { 
                 ?>
                     <a href="<?= $fila['urlUber'] ?>" target="_blank"><img class="iconoface" src="css/ubereats.png"/></a>
                 <?php
                   }
                 ?>                  
                 <?php
-                  if ($fila['urlGlovo'] != '') { 
+                  if ($fila['urlGlovo'] != ' ' & $fila['urlGlovo'] != null) { 
                 ?>
                     <a href="<?= $fila['urlGlovo'] ?>" target="_blank"><img class="iconoface" src="css/glovo.png"/></a>
                 <?php
@@ -155,7 +155,7 @@
                 ?>   
                 </div>
                 <div class="mapa">
-                  <iframe class="mapaIframe" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11924.368651530758!2d-0.8836752!3d41.6537507!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x2b13bd0cf1aaf17a!2sCroquet%20Arte!5e0!3m2!1ses!2ses!4v1661416520524!5m2!1ses!2ses" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                  <iframe class="mapaIframe" src=<?= $fila['urlMaps'] ?>></iframe>
                 </div>
               </div>
             </div>    

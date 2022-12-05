@@ -44,14 +44,11 @@ class database {
 
     public function consultarRestaurantes ($conn,$codigoCiudad,$codigoBarrio) {
         $consulta = 'SELECT nombreRestaurante,codigoRestaurante,codigoCiudad,codigoBarrio,descripcion,urlLogo,urlInstagram,urlUber,urlGlovo,urlMaps,urlOficial,urlFacebook FROM restaurantes WHERE codigoCiudad = \''.$codigoCiudad.'\'';
+        
         if ($codigoBarrio != '') {
             $consulta = 'SELECT nombreRestaurante,codigoRestaurante,codigoCiudad,codigoBarrio,descripcion,urlLogo,urlInstagram,urlUber,urlGlovo,urlMaps,urlOficial,urlFacebook FROM restaurantes WHERE codigoCiudad = \''.$codigoCiudad.'\' AND codigoBarrio = \''.$codigoBarrio.'\'';
         }
         $result = mysqli_query($conn, $consulta);             
-        
-        // printf("Select returned %d rows.\n", $result->num_rows);
-        // echo "<br>";
-
         return $result;
     }      
 }
