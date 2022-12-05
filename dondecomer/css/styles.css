@@ -18,8 +18,8 @@
 
 .iconorest {
   display:block;
-  max-width:100%;
-  height:auto;
+  height: 350px;
+  width: 500px;
 }
 
 .texto {
@@ -54,6 +54,22 @@ td {
   padding-left: 10px;
 }
 
+@media (min-width: 978px) and (max-width: 1320px) {
+  .iconorest {
+    display:block;
+    height: 300px;
+    width: 350px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 977px) {
+  .iconorest {
+    display:block;
+    height: 200px;
+    width: 250px;
+  }
+}
+
 @media (min-width: 680px) and (max-width: 767px) {
   .iconotitulo {
     padding-left: 150px;
@@ -85,6 +101,12 @@ td {
     height: 300px;
     width: 340px;
   }   
+
+  .iconorest {
+    display:block;
+    height: 300px;
+    width: 340px;
+  }    
 }
 
 button.navbar-toggler {
@@ -106,6 +128,13 @@ button.navbar-toggler {
     height: 300px;
     width: 350px;
   }    
+
+  .iconorest {
+    display:block;
+    height: 300px;
+    width: 350px;
+  }
+
 }
 
 @media (min-width: 362px) and (max-width: 374px) {
@@ -123,6 +152,12 @@ button.navbar-toggler {
     height: 300px;
     width: 340px;
   }    
+
+  .iconorest {
+    display:block;
+    height: 300px;
+    width: 340px;
+  }  
 }
 
 @media (max-width: 361px) {
@@ -140,4 +175,10 @@ button.navbar-toggler {
     height: 300px;
     width: 320px;
   }    
+
+  .iconorest {
+    display:block;
+    height: 300px;
+    width: 320px;
+  }  
 }
